@@ -1,0 +1,149 @@
+{
+  "title": "《FLOWERS》圣彗星兰＆六华苑｜3D互动 · 四季 · 鼠标跟随",
+  "description": "《FLOWERS》同人互动壁纸。底栏可切换四季，设置里可以调整镜头、景深和粒子密度。每季有两个剧情小景，也可以自由摆放人物、点击试听语音，并从四篇游戏的配乐中选曲。\n\n制作 Narc1ssusSagiran（哔哩哔哩同名）。GitHub https://github.com/A10nEsK\n\n校园模型和壁纸交互为同人制作。角色立绘、CG、配乐及语音来自 Innocent Grey 的《FLOWERS》系列，部分立绘参考发行版展示素材做了补全。相关素材的权利归各自权利方。本壁纸为非官方同人作品。",
+  "file": "index.html",
+  "type": "web",
+  "preview": "preview.jpg",
+  "visibility": "private",
+  "general": {
+    "properties": {
+      "season": {
+        "index": 0,
+        "order": 0,
+        "text": "季节",
+        "type": "combo",
+        "value": "spring",
+        "options": [
+          {
+            "label": "春 · Printemps",
+            "value": "spring"
+          },
+          {
+            "label": "夏 · Été",
+            "value": "summer"
+          },
+          {
+            "label": "秋 · Automne",
+            "value": "autumn"
+          },
+          {
+            "label": "冬 · Hiver",
+            "value": "winter"
+          }
+        ]
+      },
+      "zoom": {
+        "index": 1,
+        "order": 1,
+        "text": "画面缩放 (%)",
+        "type": "slider",
+        "value": 110,
+        "min": 50,
+        "max": 220,
+        "fraction": false
+      },
+      "elevation": {
+        "index": 2,
+        "order": 2,
+        "text": "俯视角 (°)",
+        "type": "slider",
+        "value": 35.3,
+        "min": 8,
+        "max": 85,
+        "fraction": true
+      },
+      "azimuth": {
+        "index": 3,
+        "order": 3,
+        "text": "水平角 (°)",
+        "type": "slider",
+        "value": 27,
+        "min": 0,
+        "max": 360,
+        "fraction": false
+      },
+      "parallax": {
+        "index": 4,
+        "order": 4,
+        "text": "鼠标跟随 (°)",
+        "type": "slider",
+        "value": 6,
+        "min": 0,
+        "max": 26,
+        "fraction": true
+      },
+      "blur": {
+        "index": 5,
+        "order": 5,
+        "text": "景深虚化 (%)",
+        "type": "slider",
+        "value": 62,
+        "min": 0,
+        "max": 125,
+        "fraction": false
+      },
+      "focus": {
+        "index": 6,
+        "order": 6,
+        "text": "对焦偏移",
+        "type": "slider",
+        "value": 0,
+        "min": -95,
+        "max": 95,
+        "fraction": false
+      },
+      "density": {
+        "index": 7,
+        "order": 7,
+        "text": "粒子密度 (%)",
+        "type": "slider",
+        "value": 70,
+        "min": 0,
+        "max": 240,
+        "fraction": false
+      },
+      "quality": {
+        "index": 8,
+        "order": 8,
+        "text": "画质",
+        "type": "combo",
+        "value": "standard",
+        "options": [
+          {
+            "label": "低",
+            "value": "low"
+          },
+          {
+            "label": "标准",
+            "value": "standard"
+          },
+          {
+            "label": "高",
+            "value": "high"
+          }
+        ]
+      },
+      "effects": {
+        "index": 9,
+        "order": 9,
+        "text": "播放季节特效",
+        "type": "bool",
+        "value": true
+      },
+      "labels": {
+        "index": 10,
+        "order": 10,
+        "text": "显示地标",
+        "type": "bool",
+        "value": false
+      },
+      "panel": {
+        "index": 11,
+        "order": 11,
+        "text": "显示标题和操作界面",
+        "type": "bool",
+        "value": true
+      }
+    }
+  }
+}

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>圣彗星兰＆六华苑</title>
+  <link rel="stylesheet" href="wallpaper.css">
+  <script defer src="campus.js"></script>
+  <script defer src="renderer.js"></script>
+  <script defer src="stories.js"></script>
+  <script defer src="portraits.js"></script>
+  <script defer src="figures.js"></script>
+  <script defer src="picker.js"></script>
+  <script defer src="people.js"></script>
+  <script defer src="wallpaper.js"></script>
+</head>
+<body data-season="spring">
+  <canvas id="campus" aria-label="圣彗星兰与六华苑三维俯视图"></canvas>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div id="veil" aria-hidden="true"></div>
+  <div id="landmarks" aria-label="场景地标" hidden></div>
+  <audio id="soundtrack" preload="none" loop></audio>
+  <audio id="figure-voice" preload="none"></audio>
+  <div id="figure-names" aria-hidden="true"></div>
+  <div id="figure-dot" hidden aria-hidden="true"></div>
+
+  <header id="heading">
+    <p>Saint Angraecum &amp; Rokkaen</p>
+    <h1>圣彗星兰＆六华苑</h1>
+    <div class="heading-line" aria-hidden="true"></div>
+  </header>
+
+  <div id="controls">
+    <section id="settings" aria-label="壁纸设置" hidden>
+      <div class="tabs" role="tablist" aria-label="壁纸设置">
+        <button type="button" id="camera-tab" role="tab" aria-controls="camera-settings" aria-selected="true">取景</button>
+        <button type="button" id="effects-tab" role="tab" aria-controls="effect-settings" aria-selected="false" tabindex="-1">特效</button>
+        <button type="button" id="music-tab" role="tab" aria-controls="music-settings" aria-selected="false" tabindex="-1">音乐</button>
+        <button type="button" id="people-tab" role="tab" aria-controls="people-settings" aria-selected="false" tabindex="-1">人物</button>
+      </div>
+      <div id="camera-settings" class="settings-content" role="tabpanel" aria-labelledby="camera-tab">
+        <div class="viewpoints" role="group" aria-label="取景预设">
+          <button type="button" data-view="campus" aria-pressed="true">全景</button>
+          <button type="button" data-view="forecourt" aria-pressed="false">前庭</button>
+          <button type="button" data-view="pavilion" aria-pressed="false">东屋</button>
+          <button type="button" data-view="chapel" aria-pressed="false">圣堂</button>
+          <button type="button" data-view="dormitories" aria-pressed="false">寄宿舍</button>
+          <button type="button" data-view="rokkaen" aria-pressed="false">六华苑</button>
+          <button type="button" data-view="glass" aria-pressed="false">温室</button>
+        </div>
+        <label class="slider" for="zoom"><span>画面缩放</span><output for="zoom"></output><input id="zoom" type="range" min="50" max="220" step="1"></label>
+        <label class="slider" for="elevation"><span>俯视角</span><output for="elevation"></output><input id="elevation" type="range" min="8" max="85" step=".1"></label>
+        <label class="slider" for="azimuth"><span>水平角</span><output for="azimuth"></output><input id="azimuth" type="range" min="0" max="360" step="1"></label>
+        <label class="slider" for="parallax"><span>鼠标跟随</span><output for="parallax"></output><input id="parallax" type="range" min="0" max="26" step=".5"></label>
+        <label class="checkbox" for="drag-view"><span>画面拖拽取景</span><input id="drag-view" type="checkbox"></label>
+        <div class="orbit-controls"><span>开启后，在拖拽区按住左键拖动</span><div id="orbit-pad" title="开启画面拖拽取景后，在此按住左键拖动">左键拖拽区</div></div>
+        <button type="button" class="reset" data-reset="camera">恢复默认取景</button>
+      </div>
+      <div id="effect-settings" class="settings-content" role="tabpanel" aria-labelledby="effects-tab" hidden>
+        <label class="slider" for="blur"><span>景深虚化</span><output for="blur"></output><input id="blur" type="range" min="0" max="125" step="1"></label>
+        <label class="slider" for="focus"><span>对焦偏移</span><output for="focus"></output><input id="focus" type="range" min="-95" max="95" step="1"></label>
+        <label class="slider" for="density"><span>粒子密度</span><output for="density"></output><input id="density" type="range" min="0" max="240" step="1"></label>
+        <div class="fps-choice">
+          <span>帧率上限</span>
+          <details id="fps-limit" class="picker">
+            <summary>60 FPS</summary>
+            <fieldset aria-label="帧率上限"></fieldset>
+          </details>
+        </div>
+        <button type="button" class="reset" data-reset="effects">恢复默认特效</button>
+        <label class="checkbox" for="show-title"><span>显示标题</span><input id="show-title" type="checkbox" checked></label>
+      </div>
+      <div id="music-settings" class="settings-content" role="tabpanel" aria-labelledby="music-tab" hidden>
+        <div class="music-label" id="music-label">背景音乐</div>
+        <div class="music-choice">
+          <details id="music-picker">
+            <summary id="music-selection">关闭背景音乐</summary>
+            <fieldset id="music-track" aria-labelledby="music-label">
+              <label><input type="radio" name="track" value="off" checked><span>关闭背景音乐</span></label>
+              <div class="track-season">春篇</div>
+              <label><input type="radio" name="track" value="spring-angraecum"><span>アングレカム</span></label>
+              <label><input type="radio" name="track" value="spring-prayer"><span>祈り</span></label>
+              <div class="track-season">夏篇</div>
+              <label><input type="radio" name="track" value="summer-angraecum"><span>夏のアングレカム</span></label>
+              <label><input type="radio" name="track" value="summer-together"><span>いつまでもあなたと一緒</span></label>
+              <div class="track-season">秋篇</div>
+              <label><input type="radio" name="track" value="autumn-angraecum"><span>秋のアングレカム</span></label>
+              <label><input type="radio" name="track" value="autumn-memories"><span>幸せな思い出</span></label>
+              <div class="track-season">冬篇</div>
+              <label><input type="radio" name="track" value="winter-angraecum"><span>冬のアングレカム</span></label>
+              <label><input type="radio" name="track" value="winter-wind"><span>風花</span></label>
+            </fieldset>
+          </details>
+          <button type="button" id="music-action" disabled>播放</button>
+        </div>
+        <label class="slider" for="musicVolume"><span>音乐音量</span><output for="musicVolume"></output><input id="musicVolume" type="range" min="0" max="100" step="1"></label>
+        <p id="music-status" role="status" hidden></p>
+      </div>
+      <div id="people-settings" class="settings-content" role="tabpanel" aria-labelledby="people-tab" hidden>
+        <div id="people-modes" role="group" aria-label="人物模式">
+          <button type="button" data-people="off" aria-pressed="true">全部关闭</button>
+          <button type="button" data-people="story" aria-pressed="false">剧情小景</button>
+          <button type="button" data-people="free" aria-pressed="false">自由摆放</button>
+        </div>
+        <div id="story-options" hidden>
+          <div class="people-choice">
+            <details id="story-choice" class="picker">
+              <summary>选择小景</summary>
+              <fieldset aria-label="本季小景"></fieldset>
+            </details>
+            <button type="button" id="story-reset" title="恢复演员和小景的初始状态">重置</button>
+          </div>
+          <div id="story-framing" class="people-choice" role="group" aria-label="小景取景">
+            <button type="button" id="story-unfocus" aria-pressed="true" title="沿用原有取景，继续自由调整视角">不聚焦</button>
+            <button type="button" id="story-focus" aria-pressed="false">聚焦小景</button>
+          </div>
+        </div>
+        <div id="free-options" hidden>
+          <div class="people-choice">
+            <details id="figure-choice" class="picker">
+              <summary>选择人物</summary>
+              <fieldset aria-label="可添加角色"></fieldset>
+            </details>
+            <button type="button" id="figure-add">添加人物</button>
+          </div>
+        </div>
+        <div id="figure-list" aria-label="画面中的人物" hidden></div>
+        <p id="figure-hint" hidden>点列表中的人名打开菜单 · 点画中人物播放语音</p>
+        <p id="people-status" role="status" hidden></p>
+        <label class="slider voice-slider" for="voice-volume"><span>语音音量</span><output for="voice-volume"></output><input id="voice-volume" type="range" min="0" max="100" step="1"></label>
+        <label class="checkbox" for="figure-labels"><span>显示人名</span><input id="figure-labels" type="checkbox"></label>
+      </div>
+    </section>
+
+    <nav id="season-bar" aria-label="季节和界面">
+      <div id="controls-grip" title="拖动设置栏" aria-hidden="true"></div>
+      <div id="seasons" aria-label="季节">
+        <button type="button" data-pick="spring" aria-pressed="true" title="春 · 1"><b>春</b><em>Printemps</em></button>
+        <button type="button" data-pick="summer" aria-pressed="false" title="夏 · 2"><b>夏</b><em>Été</em></button>
+        <button type="button" data-pick="autumn" aria-pressed="false" title="秋 · 3"><b>秋</b><em>Automne</em></button>
+        <button type="button" data-pick="winter" aria-pressed="false" title="冬 · 4"><b>冬</b><em>Hiver</em></button>
+      </div>
+      <button type="button" id="expand" aria-expanded="false" aria-controls="settings" title="壁纸设置 · O">
+        <span class="chevron" aria-hidden="true"></span><span>设置</span>
+      </button>
+      <div class="tools">
+        <button type="button" id="show-labels" aria-pressed="false" title="切换地标 · L">地标</button>
+        <button type="button" id="hide-controls" title="隐藏界面 · H">隐藏</button>
+      </div>
+    </nav>
+  </div>
+  <button type="button" id="restore" hidden title="显示界面 · H">显示界面</button>
+  <div id="figure-menu" class="figure-panel" role="group" aria-label="人物操作" hidden>
+    <div id="figure-menu-name"></div>
+    <button type="button" data-act="voice">播放语音</button>
+    <button type="button" data-act="move">直接移动</button>
+    <button type="button" data-act="joystick">摇杆控制</button>
+    <button type="button" data-act="focus">聚焦人物</button>
+    <button type="button" data-act="restore">归位</button>
+    <button type="button" data-act="delete">删除人物</button>
+  </div>
+  <div id="figure-move" class="figure-panel" hidden><span id="figure-move-name"></span><button type="button" id="figure-move-cancel">取消</button></div>
+  <div id="figure-drive" class="figure-panel" hidden>
+    <div><span id="figure-drive-grip" title="拖动摇杆面板"><span id="figure-drive-name"></span></span><button type="button" id="figure-drive-close" aria-label="结束摇杆控制">关闭</button></div>
+    <div id="figure-joystick" tabindex="0" aria-label="方向摇杆，拖动或用方向键"><span></span></div>
+    <small>拖动摇杆或按方向键</small>
+  </div>
+  <div id="notice" role="status">正在布置学院…</div>
+</body>
+</html>
