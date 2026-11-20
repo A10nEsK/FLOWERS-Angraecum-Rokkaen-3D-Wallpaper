@@ -8,7 +8,7 @@
 
 ## 安装
 
-在 Wallpaper Engine 创意工坊搜索 **《FLOWERS》圣彗星兰＆六华苑｜3D互动 · 四季 · 鼠标跟随**，或打开[工坊条目](https://steamcommunity.com/sharedfiles/filedetails/?id=3842792968)点「订阅」。
+在 Wallpaper Engine 创意工坊搜索 **FLOWERS 圣彗星兰与六华苑**，或打开[工坊条目](https://steamcommunity.com/sharedfiles/filedetails/?id=3842792968)点「订阅」。
 
 解压后，在 Wallpaper Engine 里点「打开壁纸 → 从文件打开」，选择本目录的 `project.json`。也可以用启用了硬件加速的浏览器打开 `index.html`。
 
