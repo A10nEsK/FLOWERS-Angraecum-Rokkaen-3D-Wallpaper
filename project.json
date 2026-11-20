@@ -1,8 +1,9 @@
 {
-  "title": "《FLOWERS》圣彗星兰＆六华苑｜3D互动 · 四季 · 鼠标跟随",
+  "title": "FLOWERS 圣彗星兰与六华苑",
   "description": "《FLOWERS》同人互动壁纸。底栏可切换四季，设置里可以调整镜头、景深和粒子密度。每季有两个剧情小景，也可以自由摆放人物、点击试听语音，并从四篇游戏的配乐中选曲。\n\n制作 Narc1ssusSagiran（哔哩哔哩同名）。GitHub https://github.com/A10nEsK\n\n校园模型和壁纸交互为同人制作。角色立绘、CG、配乐及语音来自 Innocent Grey 的《FLOWERS》系列，部分立绘参考发行版展示素材做了补全。相关素材的权利归各自权利方。本壁纸为非官方同人作品。",
   "file": "index.html",
   "type": "web",
+  "tags": ["Game"],
   "preview": "preview.jpg",
   "visibility": "private",
   "general": {
